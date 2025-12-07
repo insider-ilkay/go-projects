@@ -47,6 +47,17 @@ func RunMigrations(db *sql.DB) {
 			amount DECIMAL(20,2),
 			last_updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 		);`,
+		`CREATE TABLE IF NOT EXISTS balance_history (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			user_id INT NOT NULL,
+			balance DECIMAL(20,2) NOT NULL,
+			change_amount DECIMAL(20,2) NOT NULL,
+			transaction_id INT,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+			INDEX idx_user_id (user_id),
+			INDEX idx_created_at (created_at),
+			FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+		);`,
 		`CREATE TABLE IF NOT EXISTS audit_logs (
 			id INT AUTO_INCREMENT PRIMARY KEY,
 			entity_type VARCHAR(50),
