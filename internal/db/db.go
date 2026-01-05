@@ -10,15 +10,14 @@ import (
 func InitDB(dbURL string) *sql.DB {
 	db, err := sql.Open("mysql", dbURL)
 	if err != nil {
-		log.Fatal("❌ Veritabanına bağlanılamadı:", err)
+		log.Fatal("Veritabanına bağlanılamadı:", err)
 	}
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("❌ Veritabanı yanıt vermiyor:", err)
+		log.Fatal("Veritabanı yanıt vermiyor:", err)
 	}
 
-	log.Println("✅ Veritabanına bağlanıldı")
 	return db
 }
 
@@ -74,5 +73,4 @@ func RunMigrations(db *sql.DB) {
 			log.Fatal("Migration hatası:", err)
 		}
 	}
-	log.Println("Migration tamamlandı")
 }

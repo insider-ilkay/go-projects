@@ -18,8 +18,13 @@ func LoadConfig() Config {
 		log.Println(".env dosyası bulunamadı, varsayılanlar kullanılacak")
 	}
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	return Config{
 		DBUrl: os.Getenv("DB_URL"),
-		Port:  os.Getenv("PORT"),
+		Port:  port,
 	}
 }
